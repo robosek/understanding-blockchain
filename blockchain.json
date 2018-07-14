@@ -4,8 +4,8 @@
     "Blocks": [
         {
             "Index": 2,
-            "Timestamp": "2018-07-14T12:44:04.1652792+02:00",
-            "PreviousHash": "006ceT38TvfKhKCEA/ia4fXAqVgiOX8gzfBNRbx9buI=",
+            "Timestamp": "2018-07-14T14:24:55.6306086+02:00",
+            "PreviousHash": "00DfSyJSdgLjeSl3UgflD96jhVieVmSjABAM0zQPYFE=",
             "Data": [
                 {
                     "FromAddress": "d",
@@ -13,18 +13,18 @@
                     "Amount": 331.0
                 },
                 {
-                    "FromAddress": null,
+                    "FromAddress": "",
                     "ToAddress": "MinerA",
                     "Amount": 100.0
                 }
             ],
-            "Hash": "00pGcWo3AJ57iJo5cn0sG3rmDOazYVA1lwk2s2F1TJ0=",
-            "Nonce": 1216
+            "Hash": "00ZSqgCXsGOFI+QnUtnennYy3AcW8r43Jvusx3eCInE=",
+            "Nonce": 55
         },
         {
             "Index": 1,
-            "Timestamp": "2018-07-14T12:44:04.1429943+02:00",
-            "PreviousHash": "WdZIoawPT5PmR8oGckUYl4NibnW7h8e+6evtctWR8dc=",
+            "Timestamp": "2018-07-14T14:24:55.5375496+02:00",
+            "PreviousHash": "Cp4iQh9G9rW+nqaM2s4bLWdbfVCRl1CqCMQ4hk7B4HU=",
             "Data": [
                 {
                     "FromAddress": "a",
@@ -42,15 +42,15 @@
                     "Amount": 120.0
                 }
             ],
-            "Hash": "006ceT38TvfKhKCEA/ia4fXAqVgiOX8gzfBNRbx9buI=",
-            "Nonce": 703
+            "Hash": "00DfSyJSdgLjeSl3UgflD96jhVieVmSjABAM0zQPYFE=",
+            "Nonce": 3559
         },
         {
             "Index": 0,
-            "Timestamp": "2018-07-14T12:44:04.1273662+02:00",
-            "PreviousHash": null,
+            "Timestamp": "2018-07-14T14:24:55.3934532+02:00",
+            "PreviousHash": "",
             "Data": [],
-            "Hash": "WdZIoawPT5PmR8oGckUYl4NibnW7h8e+6evtctWR8dc=",
+            "Hash": "Cp4iQh9G9rW+nqaM2s4bLWdbfVCRl1CqCMQ4hk7B4HU=",
             "Nonce": 0
         }
     ]
