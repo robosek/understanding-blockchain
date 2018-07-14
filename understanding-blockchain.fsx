@@ -77,7 +77,7 @@ type BlockChain(difficulty:int, reward:decimal) =
             blocks <- (blocks |> List.append [ block ])
 
         member val Difficulty = difficulty with get,set
-        member val Reaward = reward with get,set
+        member val Reward = reward with get,set
         member this.Blocks with get() = blocks and set(value) = blocks <- value  
 
         member this.IsValid() =
@@ -93,7 +93,7 @@ type BlockChain(difficulty:int, reward:decimal) =
             this.AddBlock(Block(DateTime.Now, Hash(lastBlock.Hash), transactions))
 
             transactions <- []
-            this.AddTransaction(Transaction((Address("")),minerAddress,this.Reaward))
+            this.AddTransaction(Transaction((Address("")),minerAddress,this.Reward))
 
 
 //######################## Tests ###############################################

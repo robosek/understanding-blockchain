@@ -1,10 +1,10 @@
 {
     "Difficulty": 2,
-    "Reaward": 100.0,
+    "Reward": 100.0,
     "Blocks": [
         {
             "Index": 2,
-            "Timestamp": "2018-07-14T14:24:55.6306086+02:00",
+            "Timestamp": "2018-07-14T14:34:59.4033484+02:00",
             "PreviousHash": "00DfSyJSdgLjeSl3UgflD96jhVieVmSjABAM0zQPYFE=",
             "Data": [
                 {
@@ -23,7 +23,7 @@
         },
         {
             "Index": 1,
-            "Timestamp": "2018-07-14T14:24:55.5375496+02:00",
+            "Timestamp": "2018-07-14T14:34:59.3383061+02:00",
             "PreviousHash": "Cp4iQh9G9rW+nqaM2s4bLWdbfVCRl1CqCMQ4hk7B4HU=",
             "Data": [
                 {
@@ -47,7 +47,7 @@
         },
         {
             "Index": 0,
-            "Timestamp": "2018-07-14T14:24:55.3934532+02:00",
+            "Timestamp": "2018-07-14T14:34:59.3323009+02:00",
             "PreviousHash": "",
             "Data": [],
             "Hash": "Cp4iQh9G9rW+nqaM2s4bLWdbfVCRl1CqCMQ4hk7B4HU=",
