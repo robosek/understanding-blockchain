@@ -3,8 +3,77 @@
     "Reward": 200.0,
     "Blocks": [
         {
+            "Index": 2,
+            "Timestamp": "2018-07-15T19:49:31.8068355+02:00",
+            "PreviousHash": {
+                "Case": "Hash",
+                "Fields": [
+                    "00sosC/NCdMnuw09M49M1n1cN2ITVDT3A9IMOqHlVEc="
+                ]
+            },
+            "Hash": {
+                "Case": "Hash",
+                "Fields": [
+                    "00nQrV+pshK/laZ4dWxp2uNWA8uZfF0sTQpJnt9wM4I="
+                ]
+            },
+            "Transactions": [
+                {
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "d"
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "c"
+                        ]
+                    },
+                    "Amount": 20200.0
+                },
+                {
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "c"
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "d"
+                        ]
+                    },
+                    "Amount": 12000.0
+                },
+                {
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            ""
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "MinerA"
+                        ]
+                    },
+                    "Amount": 200.0
+                }
+            ],
+            "Nonce": {
+                "Case": "Nonce",
+                "Fields": [
+                    11418
+                ]
+            }
+        },
+        {
             "Index": 1,
-            "Timestamp": "2018-07-15T14:08:19.5053881+02:00",
+            "Timestamp": "2018-07-15T19:49:31.7327854+02:00",
             "PreviousHash": {
                 "Case": "Hash",
                 "Fields": [
@@ -82,13 +151,13 @@
             "Nonce": {
                 "Case": "Nonce",
                 "Fields": [
-                    1437
+                    1436
                 ]
             }
         },
         {
             "Index": 0,
-            "Timestamp": "2018-07-15T14:08:19.5053881+02:00",
+            "Timestamp": "2018-07-15T19:49:31.7327854+02:00",
             "PreviousHash": {
                 "Case": "Hash",
                 "Fields": [

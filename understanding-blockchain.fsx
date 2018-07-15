@@ -55,14 +55,15 @@ module Block =
     let rec main difficulty (block:BlockType) =
         let (Hash rawHash) = block.Hash
         let (Nonce rawNonce) = block.Nonce
+        let newNonce = Nonce(rawNonce + 1)
 
         let leadingZeros = new string('0', difficulty)
         let isTooShort (text:string) = text.Length < difficulty
         let notEnoughLeadingZeros (text:string) = text.Substring(0, difficulty) <> leadingZeros
 
         match rawHash with
-        | hash when isTooShort hash || notEnoughLeadingZeros hash -> let newHash = calculateHash block.Timestamp block.PreviousHash block.Transactions block.Nonce
-                                                                     main difficulty {block with Nonce = Nonce(rawNonce + 1); Hash = newHash}
+        | hash when isTooShort hash || notEnoughLeadingZeros hash -> let newHash = calculateHash block.Timestamp block.PreviousHash block.Transactions newNonce
+                                                                     main difficulty {block with Nonce = newNonce; Hash = newHash}
         | _ -> block
 
 module BlockChain = 
@@ -92,17 +93,17 @@ module BlockChain =
     
     let processTransactions miner (block:Block.BlockType) (blockChain:BlockChainType) =
         let updatedBlockChain = addBlock block blockChain
-        let newBlock = addTransaction {FromAddress = Address(""); ToAddress = miner; Amount = blockChain.Reward } block
+        let emptyBlock = {block with Timestamp = DateTime.Now; Index = 0; PreviousHash = Hash(""); Hash = Hash(""); Nonce = Nonce(0); Transactions = []}
+        let newBlock = addTransaction {FromAddress = Address(""); ToAddress = miner; Amount = blockChain.Reward } emptyBlock
         updatedBlockChain, newBlock
     
     let isValid (blockChain:BlockChainType) = 
         let lastBlock = blockChain.Blocks |> List.head
         let previousBlock = blockChain.Blocks |> List.find(fun block -> block.Index = (lastBlock.Index-1))
         let correctHash = lastBlock.Hash = Block.calculateHash lastBlock.Timestamp lastBlock.PreviousHash lastBlock.Transactions lastBlock.Nonce
-        printfn "LastHash? %A" lastBlock.Hash
-        printfn "Calculated? %A" (Block.calculateHash lastBlock.Timestamp lastBlock.PreviousHash lastBlock.Transactions lastBlock.Nonce)
         correctHash && lastBlock.PreviousHash = previousBlock.Hash
 
+//######################## Tests ###############################################
 let stopWatch = new Stopwatch()
 stopWatch.Start()
 
@@ -123,18 +124,16 @@ let updatedRoboCoin, newBlock = BlockChain.processTransactions minerA updatedBlo
 
 printfn "Is valid? :%b" (BlockChain.isValid updatedRoboCoin) 
 
-// roboCoin.AddTransaction(Transaction(addressB,addressA,200M))
-// roboCoin.AddTransaction(Transaction(addressA,addressB,150M))
-// roboCoin.ProcessPendingTransactions(minerA )
-// printfn "Is valid? :%b" (roboCoin.IsValid())
+let updatedBlock4 = BlockChain.addTransaction({FromAddress = addressC; ToAddress=addressD;Amount=12000M}) newBlock
+let updatedBlock5 = BlockChain.addTransaction({FromAddress = addressD; ToAddress=addressC;Amount=20200M}) updatedBlock4
 
-// roboCoin.AddTransaction(Transaction(addressD,addressC,331M))
-// roboCoin.ProcessPendingTransactions(minerB)
-// printfn "Is valid? :%b" (roboCoin.IsValid())
+let updatedRoboCoin2, newBlock2 = BlockChain.processTransactions minerB updatedBlock5 updatedRoboCoin
+
+printfn "Is valid? :%b" (BlockChain.isValid updatedRoboCoin2) 
 
 stopWatch.Stop()
 
-let serializedBlockChain = JsonConvert.SerializeObject(updatedRoboCoin)
+let serializedBlockChain = JsonConvert.SerializeObject(updatedRoboCoin2)
 printfn "Current blockchain %A" serializedBlockChain
 printfn "Mining time: %s" (stopWatch.Elapsed.ToString())
 
