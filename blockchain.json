@@ -1,57 +1,113 @@
 {
     "Difficulty": 2,
-    "Reward": 100.0,
+    "Reward": 200.0,
     "Blocks": [
         {
-            "Index": 2,
-            "Timestamp": "2018-07-14T14:34:59.4033484+02:00",
-            "PreviousHash": "00DfSyJSdgLjeSl3UgflD96jhVieVmSjABAM0zQPYFE=",
-            "Data": [
-                {
-                    "FromAddress": "d",
-                    "ToAddress": "c",
-                    "Amount": 331.0
-                },
-                {
-                    "FromAddress": "",
-                    "ToAddress": "MinerA",
-                    "Amount": 100.0
-                }
-            ],
-            "Hash": "00ZSqgCXsGOFI+QnUtnennYy3AcW8r43Jvusx3eCInE=",
-            "Nonce": 55
-        },
-        {
             "Index": 1,
-            "Timestamp": "2018-07-14T14:34:59.3383061+02:00",
-            "PreviousHash": "Cp4iQh9G9rW+nqaM2s4bLWdbfVCRl1CqCMQ4hk7B4HU=",
-            "Data": [
+            "Timestamp": "2018-07-15T14:08:19.5053881+02:00",
+            "PreviousHash": {
+                "Case": "Hash",
+                "Fields": [
+                    "r/6rcsuz3t+vZ++SjZZXRcJNlkIZjt78WgQLyoOWWZg="
+                ]
+            },
+            "Hash": {
+                "Case": "Hash",
+                "Fields": [
+                    "00sosC/NCdMnuw09M49M1n1cN2ITVDT3A9IMOqHlVEc="
+                ]
+            },
+            "Transactions": [
                 {
-                    "FromAddress": "a",
-                    "ToAddress": "b",
-                    "Amount": 150.0
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "a"
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "b"
+                        ]
+                    },
+                    "Amount": 78.0
                 },
                 {
-                    "FromAddress": "b",
-                    "ToAddress": "a",
-                    "Amount": 200.0
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "b"
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "a"
+                        ]
+                    },
+                    "Amount": 3000.0
                 },
                 {
-                    "FromAddress": "b",
-                    "ToAddress": "a",
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "a"
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "b"
+                        ]
+                    },
+                    "Amount": 2000.0
+                },
+                {
+                    "FromAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "b"
+                        ]
+                    },
+                    "ToAddress": {
+                        "Case": "Address",
+                        "Fields": [
+                            "a"
+                        ]
+                    },
                     "Amount": 120.0
                 }
             ],
-            "Hash": "00DfSyJSdgLjeSl3UgflD96jhVieVmSjABAM0zQPYFE=",
-            "Nonce": 3559
+            "Nonce": {
+                "Case": "Nonce",
+                "Fields": [
+                    1437
+                ]
+            }
         },
         {
             "Index": 0,
-            "Timestamp": "2018-07-14T14:34:59.3323009+02:00",
-            "PreviousHash": "",
-            "Data": [],
-            "Hash": "Cp4iQh9G9rW+nqaM2s4bLWdbfVCRl1CqCMQ4hk7B4HU=",
-            "Nonce": 0
+            "Timestamp": "2018-07-15T14:08:19.5053881+02:00",
+            "PreviousHash": {
+                "Case": "Hash",
+                "Fields": [
+                    ""
+                ]
+            },
+            "Hash": {
+                "Case": "Hash",
+                "Fields": [
+                    "r/6rcsuz3t+vZ++SjZZXRcJNlkIZjt78WgQLyoOWWZg="
+                ]
+            },
+            "Transactions": [],
+            "Nonce": {
+                "Case": "Nonce",
+                "Fields": [
+                    0
+                ]
+            }
         }
     ]
 }
