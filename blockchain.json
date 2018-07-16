@@ -1,182 +1,54 @@
 {
     "Difficulty": 2,
     "Reward": 200.0,
-    "Blocks": [
-        {
-            "Index": 2,
-            "Timestamp": "2018-07-15T19:49:31.8068355+02:00",
-            "PreviousHash": {
-                "Case": "Hash",
-                "Fields": [
-                    "00sosC/NCdMnuw09M49M1n1cN2ITVDT3A9IMOqHlVEc="
-                ]
-            },
-            "Hash": {
-                "Case": "Hash",
-                "Fields": [
-                    "00nQrV+pshK/laZ4dWxp2uNWA8uZfF0sTQpJnt9wM4I="
-                ]
-            },
-            "Transactions": [
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "d"
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "c"
-                        ]
-                    },
-                    "Amount": 20200.0
-                },
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "c"
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "d"
-                        ]
-                    },
-                    "Amount": 12000.0
-                },
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            ""
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "MinerA"
-                        ]
-                    },
-                    "Amount": 200.0
-                }
-            ],
-            "Nonce": {
-                "Case": "Nonce",
-                "Fields": [
-                    11418
-                ]
-            }
-        },
-        {
-            "Index": 1,
-            "Timestamp": "2018-07-15T19:49:31.7327854+02:00",
-            "PreviousHash": {
-                "Case": "Hash",
-                "Fields": [
-                    "r/6rcsuz3t+vZ++SjZZXRcJNlkIZjt78WgQLyoOWWZg="
-                ]
-            },
-            "Hash": {
-                "Case": "Hash",
-                "Fields": [
-                    "00sosC/NCdMnuw09M49M1n1cN2ITVDT3A9IMOqHlVEc="
-                ]
-            },
-            "Transactions": [
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "a"
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "b"
-                        ]
-                    },
-                    "Amount": 78.0
-                },
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "b"
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "a"
-                        ]
-                    },
-                    "Amount": 3000.0
-                },
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "a"
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "b"
-                        ]
-                    },
-                    "Amount": 2000.0
-                },
-                {
-                    "FromAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "b"
-                        ]
-                    },
-                    "ToAddress": {
-                        "Case": "Address",
-                        "Fields": [
-                            "a"
-                        ]
-                    },
-                    "Amount": 120.0
-                }
-            ],
-            "Nonce": {
-                "Case": "Nonce",
-                "Fields": [
-                    1436
-                ]
-            }
-        },
-        {
-            "Index": 0,
-            "Timestamp": "2018-07-15T19:49:31.7327854+02:00",
-            "PreviousHash": {
-                "Case": "Hash",
-                "Fields": [
-                    ""
-                ]
-            },
-            "Hash": {
-                "Case": "Hash",
-                "Fields": [
-                    "r/6rcsuz3t+vZ++SjZZXRcJNlkIZjt78WgQLyoOWWZg="
-                ]
-            },
-            "Transactions": [],
-            "Nonce": {
-                "Case": "Nonce",
-                "Fields": [
-                    0
-                ]
-            }
-        }
-    ]
+    "Blocks": [{
+        "Index": 2,
+        "Timestamp": "2018-07-16T10:04:40.5496918+02:00",
+        "PreviousHash": "00nFnu+wzkZAq19ZPOk3qVkniTO9HAb2YVEtB0h81as=",
+        "Hash": "00cCauyJ120gFeVKZTzZMj9dy2z2/ONcTASxpmVoCQ8=",
+        "Transactions": [{
+            "FromAddress": "d",
+            "ToAddress": "c",
+            "Amount": 20200.0
+        }, {
+            "FromAddress": "c",
+            "ToAddress": "d",
+            "Amount": 12000.0
+        }, {
+            "FromAddress": "",
+            "ToAddress": "MinerA",
+            "Amount": 200.0
+        }],
+        "Nonce": 9687
+    }, {
+        "Index": 1,
+        "Timestamp": "2018-07-16T10:04:40.486713+02:00",
+        "PreviousHash": "yRLdlThfJUdVWQ6SkhyCYWGTiXXGOyuhEpelkR/6tZ0=",
+        "Hash": "00nFnu+wzkZAq19ZPOk3qVkniTO9HAb2YVEtB0h81as=",
+        "Transactions": [{
+            "FromAddress": "a",
+            "ToAddress": "b",
+            "Amount": 78.0
+        }, {
+            "FromAddress": "b",
+            "ToAddress": "a",
+            "Amount": 3000.0
+        }, {
+            "FromAddress": "a",
+            "ToAddress": "b",
+            "Amount": 2000.0
+        }, {
+            "FromAddress": "b",
+            "ToAddress": "a",
+            "Amount": 120.0
+        }],
+        "Nonce": 3972
+    }, {
+        "Index": 0,
+        "Timestamp": "2018-07-16T10:04:40.486713+02:00",
+        "PreviousHash": "",
+        "Hash": "yRLdlThfJUdVWQ6SkhyCYWGTiXXGOyuhEpelkR/6tZ0=",
+        "Transactions": [],
+        "Nonce": 0
+    }]
 }
