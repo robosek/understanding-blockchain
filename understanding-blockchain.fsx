@@ -9,39 +9,59 @@ open System.Diagnostics
 open System.IO
 
 //######################## Types ###############################################
-type Hash = Hash of string
-type Nonce = Nonce of int
-type Address = Address of string
+module ConstrainedTypes = 
+    type Hash =  private Hash of string
+    type Address = private Address of string
 
-type TransactionType = {
-    FromAddress: Address
-    ToAddress: Address
+    module Hash = 
+        let create str = 
+            if String.IsNullOrEmpty str then
+                Hash String.Empty
+            else
+                Hash str
+        
+        let value (Hash rawHash) = rawHash
+
+    module Address =
+        let create str = 
+            if String.IsNullOrEmpty str then
+                Address String.Empty
+            else
+                Address str
+
+        let value (Address rawAddress) = rawAddress
+        
+
+type Nonce = Nonce of int
+
+type Transaction = {
+    FromAddress: ConstrainedTypes.Address
+    ToAddress: ConstrainedTypes.Address
     Amount: decimal
 }
 
 //######################## Modules ###############################################
 module Block =
-    type BlockType = {
+    open ConstrainedTypes
+    type Block = {
         Index: int
         Timestamp: DateTime
         PreviousHash: Hash
         Hash: Hash
-        Transactions: TransactionType list
+        Transactions: Transaction list
         Nonce: Nonce
     } 
 
-    let private createInputHashText (timestamp:DateTime) (Hash previousHash) (data:TransactionType list) (Nonce nonce) =
+    let private createInputHashText (timestamp:DateTime) (previousHash: Hash) (data:Transaction list) (Nonce nonce) =
         let dateTimeText = timestamp.ToLongDateString()
         let serializedData = JsonConvert.SerializeObject data
-        sprintf "%s-%s-%s-%O" dateTimeText previousHash serializedData nonce
-
-    let calculateHash (timestamp:DateTime) (previousHash: Hash) (data:TransactionType list) (nonce: Nonce) =
+        sprintf "%s-%s-%s-%O" dateTimeText (Hash.value previousHash) serializedData nonce
+    let calculateHash (timestamp:DateTime) (previousHash: Hash) (data:Transaction list) (nonce: Nonce) =
         let sha256 = SHA256.Create()
         let inputText = createInputHashText timestamp previousHash data nonce
         let inputBytes = Encoding.ASCII.GetBytes inputText
         let outputBytes = sha256.ComputeHash inputBytes
-        Hash(Convert.ToBase64String outputBytes)
-
+        Hash.create(Convert.ToBase64String outputBytes)
     let create index timestamp previousHash data nonce = 
         {
             Index = index
@@ -51,9 +71,8 @@ module Block =
             Transactions = data
             Nonce = nonce
         }
-
-    let rec main difficulty (block:BlockType) =
-        let (Hash rawHash) = block.Hash
+    let rec main difficulty (block:Block) =
+        let rawHash = Hash.value block.Hash
         let (Nonce rawNonce) = block.Nonce
         let newNonce = Nonce(rawNonce + 1)
 
@@ -66,53 +85,110 @@ module Block =
                                                                      main difficulty {block with Nonce = newNonce; Hash = newHash}
         | _ -> block
 
-module BlockChain = 
-    type BlockChainType = {
+
+
+module BlockChain =
+    open ConstrainedTypes
+    open Block
+
+    type BlockChain = {
         Difficulty: int
         Reward: decimal
-        Blocks: Block.BlockType list
+        Blocks: Block list
     }
 
     let create difficulty reward = 
-        let gensisBlock = Block.create 0 DateTime.Now (Hash("")) [] (Nonce(0))
+        let gensisBlock = Block.create 0 DateTime.Now (Hash.create("")) [] (Nonce(0))
         {
             Difficulty = difficulty
             Reward = reward
             Blocks = [gensisBlock]
         }
-
-    let private addBlock (block:Block.BlockType) (blockChain:BlockChainType) =
+    let private addBlock (block:Block) (blockChain:BlockChain) =
         let lastBlock = blockChain.Blocks |> List.head
         let correctBlock = Block.main blockChain.Difficulty {block with PreviousHash = lastBlock.Hash; Index = lastBlock.Index + 1}
         let updatedBlocks = blockChain.Blocks |> List.append [correctBlock]
         {blockChain with Blocks = updatedBlocks}
     
-    let addTransaction (transaction:TransactionType) (block:Block.BlockType) = 
+    let addTransaction (transaction:Transaction) (block:Block) = 
         let updatedTransactions = block.Transactions |> List.append [transaction]
         {block with Transactions = updatedTransactions}
     
-    let processTransactions miner (block:Block.BlockType) (blockChain:BlockChainType) =
+    let processTransactions miner (block:Block) (blockChain:BlockChain) =
         let updatedBlockChain = addBlock block blockChain
-        let emptyBlock = {block with Timestamp = DateTime.Now; Index = 0; PreviousHash = Hash(""); Hash = Hash(""); Nonce = Nonce(0); Transactions = []}
-        let newBlock = addTransaction {FromAddress = Address(""); ToAddress = miner; Amount = blockChain.Reward } emptyBlock
+        let emptyBlock = {Timestamp = DateTime.Now; Index = 0; PreviousHash = Hash.create(""); Hash = Hash.create(""); Nonce = Nonce(0); Transactions = []}
+        let newBlock = addTransaction {FromAddress = Address.create(""); ToAddress = miner; Amount = blockChain.Reward } emptyBlock
         updatedBlockChain, newBlock
     
-    let isValid (blockChain:BlockChainType) = 
+    let isValid (blockChain:BlockChain) = 
         let lastBlock = blockChain.Blocks |> List.head
         let previousBlock = blockChain.Blocks |> List.find(fun block -> block.Index = (lastBlock.Index-1))
         let correctHash = lastBlock.Hash = Block.calculateHash lastBlock.Timestamp lastBlock.PreviousHash lastBlock.Transactions lastBlock.Nonce
         correctHash && lastBlock.PreviousHash = previousBlock.Hash
 
+//######################## DTO ###############################################
+
+module DtoConverter =
+    open ConstrainedTypes
+    open BlockChain
+    open Block
+
+    type TransactionDto = {
+        FromAddress: string
+        ToAddress: string
+        Amount: decimal
+    }
+
+    type BlockDto = {
+         Index: int
+         Timestamp: DateTime
+         PreviousHash: string
+         Hash: string
+         Transactions: TransactionDto list
+         Nonce: int
+    }
+    type BlockChainDto = {
+        Difficulty: int
+        Reward: decimal
+        Blocks: BlockDto list
+    }
+
+    let private convertTransaction (transaction:Transaction) : TransactionDto =
+        {
+            FromAddress = Address.value transaction.FromAddress
+            ToAddress = Address.value transaction.ToAddress
+            Amount = transaction.Amount
+        }
+
+    let private convertBlock (block:Block) : BlockDto =
+        let (Nonce rawNonce) = block.Nonce
+        {
+            BlockDto.Index = block.Index
+            BlockDto.Timestamp = block.Timestamp
+            BlockDto.PreviousHash = Hash.value block.PreviousHash
+            BlockDto.Hash = Hash.value block.Hash
+            BlockDto.Transactions = block.Transactions |> List.map(convertTransaction)
+            Nonce = rawNonce
+        }
+    let convert (blockChain:BlockChain) : BlockChainDto =
+        {
+            BlockChainDto.Difficulty = blockChain.Difficulty
+            BlockChainDto.Reward = blockChain.Reward
+            BlockChainDto.Blocks = blockChain.Blocks |> List.map(convertBlock)
+        }
+
+
 //######################## Tests ###############################################
+open ConstrainedTypes
 let stopWatch = new Stopwatch()
 stopWatch.Start()
 
-let addressA = (Address("a"))
-let addressB = (Address("b"))
-let addressC = (Address("c"))
-let addressD = (Address("d"))
-let minerA = (Address("MinerA"))
-let minerB = (Address("MinerB"))
+let addressA = (Address.create("a"))
+let addressB = (Address.create("b"))
+let addressC = (Address.create("c"))
+let addressD = (Address.create("d"))
+let minerA = (Address.create("MinerA"))
+let minerB = (Address.create("MinerB"))
 
 let roboCoin = BlockChain.create 2 200M
 let updatedBlock = BlockChain.addTransaction({FromAddress = addressB; ToAddress=addressA;Amount=120M}) (roboCoin.Blocks |> List.head)
@@ -133,7 +209,7 @@ printfn "Is valid? :%b" (BlockChain.isValid updatedRoboCoin2)
 
 stopWatch.Stop()
 
-let serializedBlockChain = JsonConvert.SerializeObject(updatedRoboCoin2)
+let serializedBlockChain = JsonConvert.SerializeObject((DtoConverter.convert updatedRoboCoin2))
 printfn "Current blockchain %A" serializedBlockChain
 printfn "Mining time: %s" (stopWatch.Elapsed.ToString())
 
