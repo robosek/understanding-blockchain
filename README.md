@@ -3,3 +3,5 @@
 
 ### TODO:
 - [x] - Get rid of mutability. **Provide pure immutable blockchain - no side effects at all!**
+
+#### Mutable version of blockchain available on `mutable-blockchain` branch.
